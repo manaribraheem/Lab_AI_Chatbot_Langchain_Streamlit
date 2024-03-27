@@ -13,8 +13,7 @@ In this work, we use chroma data base
 or the medium one 
 [Mistral-7B-Instruct-v0.1-GGUF from TheBloke](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/blob/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf))
 Modefiy  the config.yaml accordingly : comment what you didn't take
-example
-
+#example
 ctransformers:
   model_path:
     small: "./models/mistral-7b-instruct-v0.1.Q2_K.gguf"
