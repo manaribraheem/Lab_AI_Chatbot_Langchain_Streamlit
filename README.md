@@ -1,7 +1,7 @@
 ## Multimodal AI Chat Setup Guide
 
 ### 1. PC Setup
-- **Visual C++ Build Tools**: Download and install the **Visual C++ Build Tools** from the provided link. These tools are essential for building C++ code on Windows.
+- **Visual C++ Build Tools**: Download and install the **Visual C++ Build Tools** from the provided link https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/. These tools are essential for building C++ code on Windows.
 - **Parent Folder Creation**: Create a parent folder named **Lab_AI** (or any other name you prefer) to organize your project files.
 - **Command Prompt Navigation**: Open a command prompt or terminal and navigate to the **Lab_AI** folder using the `cd` command.
 
