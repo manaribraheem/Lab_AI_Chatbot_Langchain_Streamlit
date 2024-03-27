@@ -13,13 +13,22 @@ the medium one
 [Mistral-7B-Instruct-v0.1-GGUF from TheBloke](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/blob/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf))
 Modefiy  the config.yaml accordingly : comment what you didn't take
 example
+
 ctransformers:
+
   model_path:
+  
     small: "./models/mistral-7b-instruct-v0.1.Q2_K.gguf"
     #larg : "./models/mistral-7b-instruct-v0.1.Q5_K_S.gguf"
+    
 Also  change in  llm_chains.py  the variable small to what you didn't comment in config file
-def create_llm(model_path = config["ctransformers"]["model_path"]["small"], model_type = config["ctransformers"]["model_type"], model_config = config["ctransformers"]["model_config"]):
+
+def create_llm(model_path = config["ctransformers"]["model_path"]["small"], model_type = config["ctransformers"]["model_type"], model_config = 
+
+config["ctransformers"]["model_config"]):
+
     llm = CTransformers(model=model_path, model_type=model_type, config=model_config)
+    
     return llm
   
 4. inside Lab_AI_Chatbot_Langchain_Streamlit/models/llava donwload image embedding model mmproj-model-f16.gguf from here 
