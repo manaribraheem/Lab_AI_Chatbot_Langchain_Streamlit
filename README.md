@@ -37,14 +37,22 @@ This  part  enable you to  drag an  image and ask question..  we can improve  th
 Don't forget to set the device accordingly 
 def transcribe_audio(audio_bytes):
     #device = "cuda:0" if torch.cuda.is_available() else "cpu"
+                                                    
     device = "cpu"
+   
     pipe = pipeline(
+   
         task="automatic-speech-recognition",
+   
         model=config["whisper_model"],
+   
         chunk_length_s=30,
+   
         device=device,
     )
+   
 n requirements
+
 sentence-transformers==2.2.2
 
 
