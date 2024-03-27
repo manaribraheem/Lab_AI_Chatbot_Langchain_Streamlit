@@ -34,8 +34,11 @@ llava_model:
 This  part  enable you to  drag an  image and ask question..  we can improve  the code to chat with the image and to display the image in the frontend later
 6. Pdf handling : I'm using BAAI/bge-large-en-v1.5 for english only .  if we take the other one "Cohere/Cohere-embed-multilingual-v3.0" we should  change the implementing code , you need to do nothing here
 7. for audio: you need to  do nothing : Whisper for audio would be used from huggingface without manuel donwloading .   This model with the function would transcribe the speach . If we want to summerize, we should use another model as bart or T5  and  change the funtion in audio handler.
-Don't forget to set the device accordingly 
+Don't forget to set the device accordingly
+
+
 def transcribe_audio(audio_bytes):
+
     #device = "cuda:0" if torch.cuda.is_available() else "cpu"
                                                     
     device = "cpu"
