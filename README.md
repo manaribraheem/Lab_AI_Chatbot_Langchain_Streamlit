@@ -1,77 +1,41 @@
-# Efor Multimodal AI Chat
+ ## Steps to Set Up Multimodal AI Chat 
 
-## Steps
-In this work, we use chroma data base
-1. In your Pc you could need to  Visual C++ Build tools  https://stackoverflow.com/questions/40504552/how-to-install-visual-c-build-tools
-- create a Parent folder Lab_AI
-- in cmd, navigate to this folder Lab_AI
-- create a virtual environement chat_venv  
-2. Clone the repo https://github.com/manaribraheem/Lab_AI_Chatbot_Langchain_Streamlit  --> (you will have Lab_AI_Chatbot_Langchain_Streamlit and chat_venv inside Lab_AI)
-3.Download the LLM : Mistral inside the folder models in Lab_AI_Chatbot_Langchain_Streamlit
-  the large one
- [TheBloke/Mistral-7B-Instruct-v0.1-GGUF](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/blob/main/mistral-7b-instruct-v0.1.Q5_K_M.gguf))
-or the medium one 
-[Mistral-7B-Instruct-v0.1-GGUF from TheBloke](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/blob/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf))
-Modefiy  the config.yaml accordingly : comment what you didn't take
-#example
-ctransformers:
-  model_path:
-    small: "./models/mistral-7b-instruct-v0.1.Q2_K.gguf"
-    #larg : "./models/mistral-7b-instruct-v0.1.Q5_K_S.gguf"
-    
-#Also  change in  llm_chains.py  the variable small to what you didn't comment in config file
+1. **PC Setup**:
+   - Download Visual C++ Build tools from this [link](https://stackoverflow.com/questions/40504552/how-to-install-visual-c-build-tools).
+   - Create a parent folder named Lab_AI.
+   - Navigate to the Lab_AI folder in the command prompt.
+   - Create a virtual environment named chat_venv.
 
+2. **Clone Repository**:
+   - Clone the repository from [here](https://github.com/manaribraheem/Lab_AI_Chatbot_Langchain_Streamlit).
+   - After cloning, you will have the Lab_AI_Chatbot_Langchain_Streamlit folder and the chat_venv inside the Lab_AI folder.
 
-def create_llm(model_path = config["ctransformers"]["model_path"]["small"], model_type = config["ctransformers"]["model_type"], model_config =
+3. **Download LLM (Language Model)**:
+   - Download the Mistral LLM inside the models folder in Lab_AI_Chatbot_Langchain_Streamlit.
+   - Choose between the large model from [TheBloke](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/blob/main/mistral-7b-instruct-v0.1.Q5_K_M.gguf) or the medium model.
+   - Modify the config.yaml accordingly by commenting out the model you didn't choose.
 
-config["ctransformers"]["model_config"]):
+4. **Image Embedding Models**:
+   - Download the image embedding model mmproj-model-f16.gguf from [here](https://huggingface.co/mys/ggml_llava-v1.5-7b/tree/main) inside the llava folder.
+   - Additionally, download the ggml-model-q5_k.gguf from [here](https://huggingface.co/mys/ggml_llava-v1.5-13b/blob/main/ggml-model-q5_k.gguf) to handle image embedding.
 
-    llm = CTransformers(model=model_path, model_type=model_type, config=model_config)
-    
-    return llm
-  
-4. inside Lab_AI_Chatbot_Langchain_Streamlit/models/llava donwload image embedding model mmproj-model-f16.gguf from here 
- https://huggingface.co/mys/ggml_llava-v1.5-7b/tree/main
+5. **Adjust Model Paths**:
+   - Update the paths for the downloaded models in the config.yaml file under the llava_model section.
+   - Set llava_model_path to "./models/llava/llava_ggml-model-q5_k.gguf".
+   - Set clip_model_path to "./models/llava/mmproj-model-f16.gguf".
 
-(go to files and versions in llava-v1.5-7b ) and  download also another llama model to handel image embedding ggml-model-q5_k.gguf in the llava folder  from https://huggingface.co/mys/ggml_llava-v1.5-13b/blob/main/ggml-model-q5_k.gguf
+6. **Image and Question Chat Enhancement**:
+   - This setup enables image dragging and asking questions. Future improvements can include integrating image display in the frontend.
 
-5. Adjust in  config.yaml  the path for these 2 models according to what you downloaded
-   
-llava_model:
+7. **PDF Handling**:
+   - For handling PDFs in English, use BAAI/bge-large-en-v1.5. Adjust code implementation if using "Cohere/Cohere-embed-multilingual-v3.0".
 
-  llava_model_path: "./models/llava/llava_ggml-model-q5_k.gguf"
-  
-  clip_model_path: "./models/llava/mmproj-model-f16.gguf"
-  
-This  part  enable you to  drag an  image and ask question..  we can improve  the code to chat with the image and to display the image in the frontend later
+8. **Audio Transcription**:
+   - Use Whisper from Hugging Face for audio transcription without manual downloading.
+   - Update the transcription function to summarize using models like Bart or T5 and adjust the audio handler function accordingly.
+   - Set the device (CPU or GPU) as per requirements.
 
-6. Pdf handling : I'm using BAAI/bge-large-en-v1.5 for english only .  if we take the other one "Cohere/Cohere-embed-multilingual-v3.0" we should  change the implementing code , you need to do nothing here
-7. for audio: you need to  do nothing : Whisper for audio would be used from huggingface without manuel donwloading .   This model with the function would transcribe the speach . If we want to summerize, we should use another model as bart or T5  and  change the funtion in audio handler.
-Don't forget to set the device accordingly
+9. **Additional Requirement**:
+   - Install the sentence-transformers version 2.2.2.
 
-
-def transcribe_audio(audio_bytes):
-
-    #device = "cuda:0" if torch.cuda.is_available() else "cpu"   
-    
-    device = "cpu" 
-    
-    pipe = pipeline(
-    
-        task="automatic-speech-recognition",
-        
-        model=config["whisper_model"],
-        
-        chunk_length_s=30,
-        
-        device=device,
-    )
-n requirements
-
-sentence-transformers==2.2.2
-
-
-##Have fun 
-
-
-  
+**Have fun exploring the Multimodal AI Chat capabilities!**  
