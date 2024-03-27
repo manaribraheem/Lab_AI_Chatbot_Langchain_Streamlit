@@ -1,13 +1,13 @@
 # Efor Multimodal AI Chat
 
-## Step
+## Steps
 In this work, we use chroma data base
 1. In your Pc you could need to  Visual C++ Build tools  https://stackoverflow.com/questions/40504552/how-to-install-visual-c-build-tools
 - create a Parent folder Lab_AI
 - in cmd, navigate to this folder Lab_AI
 - create a virtual environement chat_venv  
 2. Clone the repo https://github.com/manaribraheem/Lab_AI_Chatbot_Langchain_Streamlit  --> (you will have Lab_AI_Chatbot_Langchain_Streamlit and chat_venv inside Lab_AI)
-3.Download the LLM : mistral inside the folder models in Lab_AI_Chatbot_Langchain_Streamlit
+3.Download the LLM : Mistral inside the folder models in Lab_AI_Chatbot_Langchain_Streamlit
   the large one
  [TheBloke/Mistral-7B-Instruct-v0.1-GGUF](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/blob/main/mistral-7b-instruct-v0.1.Q5_K_M.gguf))
 or the medium one 
@@ -19,11 +19,15 @@ ctransformers:
     small: "./models/mistral-7b-instruct-v0.1.Q2_K.gguf"
     #larg : "./models/mistral-7b-instruct-v0.1.Q5_K_S.gguf"
     
-Also  change in  llm_chains.py  the variable small to what you didn't comment in config file
+#Also  change in  llm_chains.py  the variable small to what you didn't comment in config file
 
-def create_llm(model_path = config["ctransformers"]["model_path"]["small"], model_type = config["ctransformers"]["model_type"], model_config = 
+
+def create_llm(model_path = config["ctransformers"]["model_path"]["small"], model_type = config["ctransformers"]["model_type"], model_config =
+
 config["ctransformers"]["model_config"]):
+
     llm = CTransformers(model=model_path, model_type=model_type, config=model_config)
+    
     return llm
   
 4. inside Lab_AI_Chatbot_Langchain_Streamlit/models/llava donwload image embedding model mmproj-model-f16.gguf from here 
@@ -67,7 +71,7 @@ n requirements
 sentence-transformers==2.2.2
 
 
-Have fun 
+##Have fun 
 
 
   
