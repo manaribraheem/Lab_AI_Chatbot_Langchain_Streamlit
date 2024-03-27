@@ -35,8 +35,11 @@ config["ctransformers"]["model_config"]):
 5. Adjust in  config.yaml  the path for these 2 models according to what you downloaded
    
 llava_model:
+
   llava_model_path: "./models/llava/llava_ggml-model-q5_k.gguf"
+  
   clip_model_path: "./models/llava/mmproj-model-f16.gguf"
+  
 This  part  enable you to  drag an  image and ask question..  we can improve  the code to chat with the image and to display the image in the frontend later
 
 6. Pdf handling : I'm using BAAI/bge-large-en-v1.5 for english only .  if we take the other one "Cohere/Cohere-embed-multilingual-v3.0" we should  change the implementing code , you need to do nothing here
@@ -45,16 +48,27 @@ Don't forget to set the device accordingly
 
 
 def transcribe_audio(audio_bytes):
-    #device = "cuda:0" if torch.cuda.is_available() else "cpu"                                             
+
+    #device = "cuda:0" if torch.cuda.is_available() else "cpu"   
+    
     device = "cpu" 
+    
     pipe = pipeline(
+    
         task="automatic-speech-recognition",
+        
         model=config["whisper_model"],
+        
         chunk_length_s=30,
+        
         device=device,
     )
 n requirements
+
 sentence-transformers==2.2.2
+
+
+Have fun 
 
 
   
