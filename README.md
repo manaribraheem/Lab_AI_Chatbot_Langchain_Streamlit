@@ -1,16 +1,40 @@
-# Local Multimodal AI Chat
+# Efor Multimodal AI Chat
 ## Overview
 
 Local Multimodal AI Chat is a hands-on project aimed at learning how to build a multimodal chat application. This project is all about integrating different AI models to handle audio, images, and PDFs in a single chat interface. It's a great way for anyone interested in AI and software development to get practical experience with these technologies.
 
-The main purpose here is to learn by doing. You'll see how different pieces like Whisper AI for audio, LLaVA for image processing, and Chroma DB for PDFs come together in a chat application. A full tutorial on how I created this repository can be found on my [youtube channel](https://youtu.be/CUjO8b6_ZuM).
-But, this is still a work in progress. There's plenty of room for improvement, and that's where you come in.
+The main purpose here is to learn by doing. You'll see how different pieces like Whisper AI for audio, LLaVA for image processing, and Chroma DB for PDFs come together in a chat application. A full tutorial on how created this repository can be found on  [youtube channel](https://youtu.be/CUjO8b6_ZuM).
 
-I'm really open to pull requests. Whether you have ideas for new features, ways to make the code better, or just want to fix a bug, your contributions are welcome. This project is as much about learning from each other as it is about building something cool.
 
-So, if you're interested in AI chat applications and want to dive into how they're built, join in. Your code and ideas can help make this project better for everyone who wants to learn more about building with AI.
+## Steps
+In this work, we use chroma data base
+- In your Pc  create a folder and name it Lab
+- **Clone the repo https://github.com/manaribraheem/Lab_AI_Efor
+2. download the LLM : mistral
+3. create folder llava inside models and in llava donwload image embedding model mmproj-model-f16.gguf from here 
+ https://huggingface.co/mys/ggml_llava-v1.5-7b/tree/main
+(go to files and versions in llava-v1.5-7b ) : allow the language model to read information from both text and images. and  download also another llama model to handel image embedding ggml-model-q5_k.gguf in the llava folder 
+4. ajust in  config.yaml  the path for these 2 models according to what you downloaded
+llava_model:
+  llava_model_path: "./models/llava/llava_ggml-model-q5_k.gguf"
+  clip_model_path: "./models/llava/mmproj-model-f16.gguf"
+this  part  enable you to  drag an  image and ask question..  we can improve  the code to chat with the image and to display the image in the frontend 
+5.  Pdf handling : i'm using BAAI/bge-large-en-v1.5     for english .  if we take the other one "Cohere/Cohere-embed-multilingual-v3.0" we should  change the implementing code
+6. for audio: you need to  do nothing : Whisper for audio would be used from huggingface without manuel donwloading .   this model with the function woul transcribe the speach . if we want to summerize , we should use another model as bart or T5  and  change the funtion in  audio handler.
+def transcribe_audio(audio_bytes):
+    #device = "cuda:0" if torch.cuda.is_available() else "cpu"
+    device = "cpu"
+    pipe = pipeline(
+        task="automatic-speech-recognition",
+        model=config["whisper_model"],
+        chunk_length_s=30,
+        device=device,
+    )
+n requirements
+sentence-transformers==2.2.2
 
-## Features
+
+                                                 
 
 - **Quantized Model Integration**: This app uses what are called "quantized models." These are special because they are designed to work well on regular consumer hardware, like the kind most of us have at home or in our offices. Normally, the original versions of these models are really big and need more powerful computers to run them. But quantized models are optimized to be smaller and more efficient, without losing much performance. This means you can use this app and its features without needing a super powerful computer. [Quantized Models from TheBloke](https://huggingface.co/TheBloke)
 
